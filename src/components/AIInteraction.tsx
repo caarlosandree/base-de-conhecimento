@@ -1,67 +1,119 @@
-// src/components/AIInteraction.tsx
-import React, { useState } from 'react';
-import './AIInteraction.css'; // Vamos criar este CSS
+import React, { useState, FormEvent, useEffect, useRef } from 'react';
+import './AIInteraction.css'; // Certifique-se de que este arquivo existe para os estilos
+
+// Definindo a interface ChatMessage (pode ser importada de um arquivo de tipos compartilhado)
+interface ChatMessage {
+    role: 'user' | 'model';
+    text: string;
+}
+
+type ActiveGeminiModelType = 'flash' | 'pro';
 
 interface AIInteractionProps {
     onSendMessage: (message: string) => void;
     isLoading: boolean;
-    aiResponse: string | null;
+    // aiResponse: string | null; // Esta prop não é mais usada para exibição de mensagens
     hasError: boolean;
-    message: string; // Para a mensagem do DocumentDisplay
+    message: string;
+    activeGeminiModel: ActiveGeminiModelType;
+    // NOVA PROP: Recebe o histórico completo da conversa
+    conversationHistory: ChatMessage[];
 }
 
-const AIInteraction: React.FC<AIInteractionProps> = ({ onSendMessage, isLoading, aiResponse, hasError, message }) => {
-    const [inputText, setInputText] = useState('');
+const AIInteraction: React.FC<AIInteractionProps> = ({
+                                                         onSendMessage,
+                                                         isLoading,
+                                                         // aiResponse, // Não precisamos mais desta prop para renderizar as mensagens
+                                                         hasError,
+                                                         message,
+                                                         activeGeminiModel,
+                                                         conversationHistory, // Recebendo o histórico
+                                                     }) => {
+    const [inputMessage, setInputMessage] = useState<string>('');
+    const messagesEndRef = useRef<HTMLDivElement>(null);
 
-    const handleSend = () => {
-        if (inputText.trim()) {
-            onSendMessage(inputText);
-            setInputText(''); // Limpa o input após enviar
+    // Rola para o final da conversa quando o histórico, o carregamento ou o erro mudam
+    useEffect(() => {
+        if (messagesEndRef.current) {
+            messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, [conversationHistory, isLoading, hasError]); // Adicionado hasError ao array de dependências
+
+    const handleSubmit = (e: FormEvent) => {
+        e.preventDefault();
+        if (inputMessage.trim() && !isLoading) {
+            onSendMessage(inputMessage);
+            setInputMessage('');
         }
     };
 
-    const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-        if (event.key === 'Enter') {
-            handleSend();
+    const getModelDisplayName = (model: ActiveGeminiModelType) => {
+        if (model === 'flash') {
+            return 'Gemini 1.5 Flash';
+        } else if (model === 'pro') {
+            return 'Gemini 2.5 Preview';
         }
+        return 'Modelo Desconhecido';
     };
 
     return (
         <div className="ai-interaction-container">
-            <h3>Pergunte à IA:</h3>
-            <div className="ai-input-area">
+            {/* O formulário de input permanece na parte inferior */}
+            <form onSubmit={handleSubmit} className="ai-input-form">
                 <input
                     type="text"
-                    placeholder="Como resolver o problema de áudio?"
-                    value={inputText}
-                    onChange={(e) => setInputText(e.target.value)}
-                    onKeyPress={handleKeyPress}
+                    value={inputMessage}
+                    onChange={(e) => setInputMessage(e.target.value)}
+                    placeholder={isLoading ? "Aguarde..." : "Digite sua pergunta para a IA..."}
                     disabled={isLoading}
+                    aria-label="Digite sua pergunta para a IA"
                 />
-                <button onClick={handleSend} disabled={isLoading}>
-                    {isLoading ? 'Enviando...' : 'Perguntar'}
+                <button type="submit" disabled={isLoading}>
+                    {isLoading ? 'Enviando...' : 'Enviar'}
                 </button>
+            </form>
+
+            {/* A área de exibição das mensagens permanece na parte superior */}
+            <div className="ai-messages-display">
+                {/* Indicador do modelo Gemini ativo - permanece no topo */}
+                <div className="active-model-indicator">
+                    <span>Modelo Ativo: </span>
+                    <span className={`model-name ${activeGeminiModel}`}>
+                        {getModelDisplayName(activeGeminiModel)}
+                    </span>
+                </div>
+
+                {/* Mensagem instrutiva inicial - exibida apenas se não houver histórico e nenhum processo ativo */}
+                {conversationHistory.length === 0 && !isLoading && !hasError && (
+                    <div className="ai-message initial-message">
+                        <p>{message}</p>
+                    </div>
+                )}
+
+                {/* Renderiza todas as mensagens do histórico */}
+                {conversationHistory.map((msg, index) => (
+                    <div key={index} className={`ai-message ${msg.role}-message`}>
+                        <p>{msg.text}</p>
+                    </div>
+                ))}
+
+                {/* Indicador de Carregamento - agora aparece NO FINAL do histórico */}
+                {isLoading && (
+                    <div className="ai-message loading-message">
+                        <div className="spinner"></div>
+                        <p>A IA está pensando...</p>
+                    </div>
+                )}
+
+                {/* Mensagem de Erro - agora aparece NO FINAL do histórico, se hasError for true e não houver loading */}
+                {hasError && !isLoading && ( // Exibe o erro se não estiver carregando
+                    <div className="ai-message error-message">
+                        <p>Ocorreu um erro ao interagir com a IA. Por favor, tente novamente.</p>
+                    </div>
+                )}
+
+                <div ref={messagesEndRef} />
             </div>
-
-            {aiResponse && (
-                <div className="ai-response-area">
-                    <h4>Resposta da IA:</h4>
-                    <p>{aiResponse}</p>
-                </div>
-            )}
-
-            {hasError && (
-                <div className="ai-error-message">
-                    Ocorreu um erro ao processar sua pergunta. Tente novamente.
-                </div>
-            )}
-
-            {/* Exibir a mensagem padrão do DocumentDisplay aqui se não houver resposta da IA */}
-            {!aiResponse && !isLoading && !hasError && (
-                <div className="ai-placeholder-message">
-                    {message || "Digite sua pergunta acima para obter ajuda da IA."}
-                </div>
-            )}
         </div>
     );
 };

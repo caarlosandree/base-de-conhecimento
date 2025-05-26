@@ -1,37 +1,38 @@
-.sidebar {
-    width: 200px;
-    background-color: #f0f2f5;
-    padding: 20px;
-    border-right: 1px solid #ddd;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
-}
+/* src/components/Sidebar/Sidebar.css */
 
-.sidebar h2 {
-    margin-top: 0;
-    color: #333;
-    font-size: 1.5em;
-}
-
-.sidebar ul {
-    list-style: none;
-    padding: 0;
-}
-
-.sidebar li {
-    padding: 10px 15px;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-bottom: 5px;
-    color: #555;
-}
-
-.sidebar li:hover {
-    background-color: #e0e2e5;
-    color: #333;
-}
-
-.sidebar li.active {
-    background-color: #61dafb;
+.app-sidebar {
+    width: 300px; /* Largura fixa para o sidebar */
+    background-color: #34495e; /* Cor de fundo mais escura */
     color: white;
-    font-weight: bold;
+    padding: 15px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    overflow-y: auto; /* Permite rolar se a lista for longa */
+    height: calc(100vh - 120px); /* Ajusta a altura considerando o header */
+    position: sticky;
+    top: 120px; /* Fixa abaixo do header, que agora é maior */
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-empty-message {
+    padding: 20px;
+    text-align: center;
+    color: #a0a0a0;
+    font-style: italic;
+    flex-grow: 1; /* Para centralizar verticalmente em caso de lista vazia */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Responsividade */
+@media (max-width: 1023px) {
+    .app-sidebar {
+        width: 100%; /* Ocupa toda a largura em mobile */
+        height: auto; /* Altura flexível */
+        position: static; /* Não fica fixo em mobile */
+        padding-bottom: 20px; /* Espaço inferior para rolar */
+        height: auto; /* A altura será determinada pelo conteúdo */
+        max-height: calc(100vh - 120px); /* Limita a altura para que não saia da tela */
+    }
 }

@@ -1,53 +1,173 @@
+/* src/components/DocumentDisplay/DocumentDisplay.css */
+
 .document-display {
-    flex-grow: 3; /* Ocupa a maior parte do espaço */
-    padding: 20px 40px;
+    flex-grow: 1; /* Permite que ocupe o espaço restante */
+    padding: 20px;
     background-color: #ffffff;
-    overflow-y: auto; /* Para scrollar se o conteúdo for muito longo */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; /* Adiciona scroll se o conteúdo for muito longo */
+    display: flex;
+    flex-direction: column;
 }
 
 .document-display-placeholder {
-    flex-grow: 3;
+    flex-grow: 1;
     display: flex;
-    justify-content: center;
     align-items: center;
-    font-size: 1.2em;
-    color: #888;
-    background-color: #f9f9f9;
+    justify-content: center;
+    color: #6c757d;
+    font-style: italic;
+    text-align: center;
 }
 
-.document-display h2 {
-    color: #0056b3;
+.document-title {
+    color: #343a40;
     margin-top: 0;
-    margin-bottom: 15px;
-    font-size: 2em;
+    margin-bottom: 10px;
+    font-size: 1.8em;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 10px;
 }
 
 .document-category {
-    font-weight: bold; /* Adiciona negrito */
-    font-style: italic; /* Adiciona itálico, se desejar */
-    margin-bottom: 15px; /* Adiciona algum espaço abaixo da categoria */
-    color: #555; /* Uma cor mais suave, por exemplo */
+    color: #6c757d;
+    font-size: 0.9em;
+    margin-bottom: 20px;
 }
 
 .document-content {
     line-height: 1.6;
-    color: #333;
+    color: #495057;
+    flex-grow: 1; /* Permite que ocupe o espaço restante dentro do display */
 }
 
+/* Estilos para o conteúdo Rich Text do Strapi */
 .document-content p {
+    margin-bottom: 1em;
+}
+
+.document-content h1, .document-content h2,
+.document-content h3, .document-content h4,
+.document-content h5, .document-content h6 {
+    margin-top: 1.5em;
+    margin-bottom: 0.8em;
+    color: #343a40;
+}
+
+.document-content ul, .document-content ol {
+    margin-bottom: 1em;
+    padding-left: 25px;
+}
+
+.document-content li {
+    margin-bottom: 0.5em;
+}
+
+.document-content code {
+    background-color: #e9ecef;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    font-size: 0.875em;
+}
+
+.document-content pre {
+    background-color: #212529;
+    color: #f8f9fa;
+    padding: 15px;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin-bottom: 1em;
+}
+
+.document-content blockquote {
+    border-left: 4px solid #ced4da;
+    padding-left: 15px;
+    margin-left: 0;
+    margin-bottom: 1em;
+    color: #6c757d;
+    font-style: italic;
+}
+
+/* ESTILO DO DESTAQUE: */
+.highlight {
+    background-color: #ffff00; /* Amarelo vibrante */
+    color: #333; /* Texto para contrastar com o amarelo */
+    padding: 1px 3px;
+    border-radius: 3px;
+}
+
+
+/* Responsividade */
+@media (max-width: 1023px) {
+    .document-display {
+        position: fixed; /* Ocupa a tela toda em mobile quando selecionado */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1000; /* Garante que fique por cima de tudo */
+        padding-top: 60px; /* Para não ficar por baixo do header */
+        border-radius: 0;
+    }
+}
+
+/* Estilo para o realce de texto */
+.highlight {
+    background-color: #fce83a; /* Amarelo vibrante para realce */
+    color: #333; /* Cor do texto para garantir contraste */
+    padding: 2px 0; /* Um pequeno preenchimento para visualização */
+    border-radius: 3px; /* Bordas arredondadas sutis */
+}
+
+/* Exemplo de estilos básicos para o DocumentDisplay, ajuste conforme o seu projeto */
+.document-display {
+    flex-grow: 1; /* Para ocupar o espaço disponível */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    overflow-y: auto; /* Para permitir rolagem se o conteúdo for longo */
+}
+
+.document-display.no-document-selected {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-style: italic;
+    color: #666;
+}
+
+.document-display h2 {
+    color: #333;
     margin-bottom: 10px;
 }
 
-/* Estilos básicos para o markdown simples */
-.document-content .bold-text {
-    font-weight: bold;
-    margin-top: 15px;
-    margin-bottom: 5px;
-    font-size: 1.1em;
+.document-display .document-category {
+    font-size: 0.9em;
+    color: #777;
+    margin-bottom: 20px;
 }
 
-.document-content .list-item {
+.document-display .document-content p {
+    line-height: 1.6;
+    margin-bottom: 1em;
+}
+
+.document-display .document-content h1,
+.document-display .document-content h2,
+.document-display .document-content h3 {
+    margin-top: 1.5em;
+    margin-bottom: 0.8em;
+    color: #444;
+}
+
+.document-display .document-content ul {
     margin-left: 20px;
-    margin-bottom: 5px;
-    list-style-type: disc; /* ou decimal para listas numeradas */
+    margin-bottom: 1em;
+}
+
+.document-display .document-content li {
+    margin-bottom: 0.5em;
 }

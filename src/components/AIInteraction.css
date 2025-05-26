@@ -1,141 +1,249 @@
-/* src/components/AIInteraction.css */
+/* Container principal da interação com a IA */
 .ai-interaction-container {
-    flex: 1; /* Faz com que ocupe o espaço disponível */
-    background-color: white;
-    padding: 25px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
+    height: 100%; /* Ocupa toda a altura disponível do pai */
+    padding: 20px;
+    background-color: #f9f9f9; /* Um fundo levemente diferente para a área da IA */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.ai-interaction-container h3 {
-    margin-top: 0;
-    color: #0056b3;
-    font-size: 1.5em;
-    margin-bottom: 15px;
+/* Área de exibição das mensagens da IA */
+/* ATENÇÃO: Corresponde a .ai-messages-display no JSX */
+.ai-messages-display {
+    flex-grow: 1; /* Permite que esta área ocupe o espaço restante */
+    overflow-y: auto; /* Adiciona barra de rolagem se o conteúdo for grande */
+    margin-bottom: 20px;
+    padding-right: 10px; /* Espaço para a barra de rolagem */
+    border-bottom: 1px solid #eee; /* Linha divisória */
+    padding-bottom: 10px;
 }
 
-.ai-input-area {
+/* Estilo geral para qualquer bloco de mensagem da IA */
+.ai-message {
+    padding: 12px 15px;
+    border-radius: 18px; /* Cantos mais arredondados para mensagens */
+    margin-bottom: 10px;
+    max-width: 80%; /* Para que as mensagens não ocupem 100% da largura */
+    word-wrap: break-word; /* Garante que o texto quebre linhas longas */
+    line-height: 1.5;
+    /* Adiciona transição suave para possíveis animações futuras */
+    transition: all 0.3s ease-out;
+}
+
+/* Estilo para a mensagem instrutiva inicial */
+.ai-message.initial-message {
+    background-color: #e0f2f7; /* Um azul claro */
+    color: #333;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 60%; /* Mais estreito para mensagens iniciais */
+    font-style: italic;
+    opacity: 0.9;
+}
+
+/* Estilo para a mensagem de resposta da IA */
+.ai-message.response-message {
+    background-color: #e6e6e6; /* Cinza claro para respostas da IA */
+    color: #333;
+    align-self: flex-start; /* Alinha à esquerda (mensagem da IA) */
+}
+
+/* Estilo para o indicador de carregamento */
+.ai-message.loading-message {
+    background-color: #d1ecf1; /* Um tom azul claro para carregamento */
+    color: #0c5460;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-style: italic;
+    opacity: 0.9;
+}
+
+/* Estilo do spinner de carregamento */
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #007bff; /* Cor do spinner (azul primário) */
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite; /* Animação de rotação */
+    margin-right: 10px;
+}
+
+/* Animação para o spinner */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Estilo para a mensagem de erro */
+.ai-message.error-message {
+    background-color: #f8d7da; /* Vermelho claro */
+    color: #721c24;
+    font-weight: bold;
+    text-align: center;
+    /* Adiciona ícone de atenção se desejar */
+    /* content: "\26A0"; /* Ícone de triângulo de atenção */
+    /* margin-right: 8px; */
+}
+
+/* Formulário de input e botão */
+/* ATENÇÃO: Corresponde a .ai-input-form no JSX */
+.ai-input-form {
     display: flex;
     gap: 10px;
-    margin-bottom: 20px;
+    padding: 10px; /* Padding interno para o formulário */
+    border-top: 1px solid #eee; /* Linha divisória */
+    background-color: #f9f9f9; /* Fundo para o formulário */
+    border-radius: 0 0 8px 8px; /* Arredonda apenas os cantos inferiores */
 }
 
-.ai-input-area input {
-    flex: 1;
-    padding: 10px 15px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
+.ai-input-form input {
+    flex-grow: 1;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 25px; /* Mais arredondado */
     font-size: 1em;
+    outline: none;
+    transition: border-color 0.2s ease-in-out;
 }
 
-.ai-input-area button {
-    padding: 10px 20px;
-    background-color: #007bff;
+.ai-input-form input:focus {
+    border-color: #007bff; /* Cor de foco azul */
+}
+
+.ai-input-form button {
+    padding: 12px 20px;
+    background-color: #007bff; /* Azul primário */
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 25px; /* Mais arredondado */
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.2s ease-in-out;
 }
 
-.ai-input-area button:hover:not(:disabled) {
-    background-color: #0056b3;
+.ai-input-form button:hover:not(:disabled) {
+    background-color: #0056b3; /* Azul mais escuro no hover */
 }
 
-.ai-input-area button:disabled {
-    background-color: #a7a7a7;
+.ai-input-form button:disabled {
+    background-color: #cccccc; /* Cinza para botão desabilitado */
     cursor: not-allowed;
+    opacity: 0.8; /* Opacidade reduzida */
 }
 
-.ai-response-area {
-    margin-top: 20px;
-    padding: 15px;
-    background-color: #f8f9fa;
-    border: 1px solid #e9ecef;
-    border-radius: 8px;
-    overflow-y: auto; /* Adiciona scroll se a resposta for longa */
-    max-height: calc(100vh - 350px); /* Ajuste conforme necessário */
-}
 
-.ai-response-area h4 {
-    margin-top: 0;
-    color: #343a40;
-    font-size: 1.2em;
-    margin-bottom: 10px;
-}
-
-.ai-response-area p {
-    white-space: pre-wrap; /* Preserva quebras de linha e espaços */
-    word-wrap: break-word; /* Quebra palavras longas */
-    color: #333;
-}
-
-.ai-error-message {
-    color: #dc3545;
-    background-color: #f8d7da;
-    border: 1px solid #f5c6cb;
-    padding: 10px;
-    border-radius: 4px;
-    margin-top: 20px;
-    text-align: center;
-}
-
-.ai-placeholder-message {
-    flex: 1; /* Ocupa o espaço restante */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: #6c757d;
-    font-style: italic;
-    padding: 20px;
-}
-
-/* Media Queries para responsividade */
+/* Media Queries para responsividade (mantenha ou ajuste as suas existentes) */
 @media (max-width: 1024px) {
     .ai-interaction-container {
-        padding: 20px;
-        margin-top: 15px; /* Espaçamento após a lista de documentos em mobile */
+        padding: 15px;
+        margin-top: 15px;
     }
-
-    .ai-response-area {
-        max-height: 300px; /* Ajuste para telas menores */
+    .ai-messages-display {
+        margin-bottom: 15px;
+    }
+    .ai-input-form {
+        padding: 8px;
+    }
+    .ai-input-form input,
+    .ai-input-form button {
+        padding: 10px 15px;
+        font-size: 0.9em;
     }
 }
 
 @media (max-width: 768px) {
     .ai-interaction-container {
-        padding: 15px;
+        padding: 10px;
     }
-    .ai-interaction-container h3 {
-        font-size: 1.3em;
+    .ai-messages-display {
+        margin-bottom: 10px;
     }
-    .ai-input-area input,
-    .ai-input-area button {
-        font-size: 0.9em;
-        padding: 8px 12px;
+    .ai-input-form {
+        flex-direction: column; /* Input e botão em coluna em telas menores */
+        gap: 8px;
     }
-    .ai-response-area {
-        max-height: 250px;
+    .ai-input-form input {
+        width: 100%;
+    }
+    .ai-input-form button {
+        width: 100%;
+        padding: 10px;
     }
 }
 
-@media (max-width: 480px) {
-    .ai-interaction-container {
-        padding: 10px;
-    }
-    .ai-interaction-container h3 {
-        font-size: 1.1em;
-    }
-    .ai-input-area input,
-    .ai-input-area button {
+/* Estilos para o indicador do modelo ativo */
+.active-model-indicator {
+    text-align: center;
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 15px;
+    padding: 8px 15px;
+    background-color: #f0f0f0;
+    border-radius: 20px;
+    display: inline-flex; /* Para que o bloco se ajuste ao conteúdo */
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto; /* Centraliza o elemento */
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.active-model-indicator .model-name {
+    font-weight: bold;
+    margin-left: 5px;
+    padding: 3px 8px;
+    border-radius: 12px;
+    /* Estilos específicos para cada modelo */
+}
+
+.active-model-indicator .model-name.flash {
+    background-color: #ffe0b2; /* Laranja claro */
+    color: #e65100; /* Laranja escuro */
+}
+
+.active-model-indicator .model-name.pro {
+    background-color: #c8e6c9; /* Verde claro */
+    color: #2e7d32; /* Verde escuro */
+}
+
+/* Ajustes para responsividade se necessário */
+@media (max-width: 768px) {
+    .active-model-indicator {
         font-size: 0.8em;
-        padding: 6px 10px;
+        padding: 6px 12px;
+        margin-bottom: 10px;
     }
-    .ai-response-area {
-        max-height: 200px;
-        padding: 10px;
-    }
+}
+
+/* Estilos para mensagens do usuário */
+.ai-message.user-message {
+    background-color: #007bff; /* Azul para as mensagens do usuário */
+    color: white;
+    margin-left: auto; /* Alinha a mensagem do usuário à direita */
+    text-align: right; /* Alinha o texto dentro da mensagem do usuário à direita */
+}
+
+/* Estilos para mensagens do modelo (IA) */
+.ai-message.model-message {
+    background-color: #e6e6e6; /* Cinza claro para respostas da IA */
+    color: #333;
+    margin-right: auto; /* Alinha a mensagem da IA à esquerda */
+    text-align: left; /* Alinha o texto dentro da mensagem da IA à esquerda */
+}
+
+/* Garante que o indicador de modelo e as mensagens se encaixem bem */
+.ai-messages-display > *:not(:last-child) {
+    margin-bottom: 10px; /* Espaçamento entre os elementos dentro do display */
+}
+
+/* Algum ajuste para o scrollRef se ele for um div vazio que aparece no final */
+.ai-messages-display div[ref] {
+    height: 1px; /* Ou 0, apenas para ter um ponto de rolagem */
+    visibility: hidden; /* Oculta o div de referência */
 }
