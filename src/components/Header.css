@@ -1,0 +1,28 @@
+.app-header {
+    background-color: #282c34;
+    padding: 20px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.app-header h1 {
+    margin: 0;
+    font-size: 1.8em;
+}
+
+.search-input {
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: 1px solid #61dafb;
+    width: 300px;
+    font-size: 1em;
+    background-color: #3a3f47;
+    color: white;
+}
+
+.search-input::placeholder {
+    color: #bbb;
+}

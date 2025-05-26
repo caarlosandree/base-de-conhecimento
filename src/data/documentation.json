@@ -1,0 +1,20 @@
+[
+  {
+    "id": "ramal-ip-configuracao",
+    "title": "Configuração Básica de Ramal IP",
+    "category": "Telefonia",
+    "content": "Para configurar um ramal IP, siga os seguintes passos:\n\n1.  **Acesse o painel de administração** do seu PABX IP.\n2.  Navegue até a seção **'Ramais'** ou **'Endpoints'**.\n3.  Clique em **'Adicionar Novo Ramal'**.\n4.  Preencha as informações:\n    * **Número do Ramal**: Ex: 2001\n    * **Senha/PIN**: Gerar uma senha segura.\n    * **Tipo de Dispositivo**: Selecione 'SIP Phone' ou similar.\n5.  **Salve** as configurações.\n\nAgora, configure o telefone físico com o número do ramal e a senha fornecidos."
+  },
+  {
+    "id": "rede-cabeamento-guia",
+    "title": "Guia Prático de Cabeamento Estruturado CAT6",
+    "category": "Redes",
+    "content": "O cabeamento estruturado com cabos CAT6 é essencial para redes de alta velocidade.\n\n**Pontos Chave:**\n* **Distância Máxima**: 100 metros para 1000BASE-T (Gigabit Ethernet).\n* **Terminação**: Use conectores RJ45 compatíveis com CAT6 (blindados ou não, dependendo do ambiente).\n* **Testes**: Sempre teste a continuidade e a integridade dos cabos após a instalação com um testador de cabos de rede.\n* **Organização**: Utilize patch panels e organizadores de cabos para facilitar a manutenção."
+  },
+  {
+    "id": "fibra-optica-manutencao",
+    "title": "Manutenção Preventiva de Fibra Óptica",
+    "category": "Redes",
+    "content": "A fibra óptica exige cuidados específicos para garantir sua longevidade e desempenho.\n\n**Dicas de Manutenção:**\n1.  **Limpeza dos Conectores**: Use kits de limpeza próprios para fibra óptica para remover poeira e contaminantes.\n2.  **Proteção de Dobras**: Evite dobras bruscas nos cabos, pois podem causar atenuação ou quebras.\n3.  **Inspeção Regular**: Verifique os conectores e o trajeto do cabo para identificar danos.\n4.  **Ambiente Controlado**: Mantenha as áreas com equipamentos de fibra limpas e com temperatura controlada."
+  }
+]

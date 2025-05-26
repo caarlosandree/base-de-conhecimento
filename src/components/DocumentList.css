@@ -1,0 +1,51 @@
+.document-list {
+    flex-grow: 1; /* Permite que ocupe o espaço restante */
+    padding: 20px;
+    background-color: #ffffff;
+    border-right: 1px solid #eee;
+    overflow-y: auto; /* Para scrollar se houver muitos documentos */
+    width: 250px; /* Largura fixa para a lista de documentos */
+}
+
+.document-list h2 {
+    margin-top: 0;
+    color: #333;
+    font-size: 1.5em;
+}
+
+.document-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.document-list li {
+    padding: 10px 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+    color: #333;
+}
+
+.document-list li:last-child {
+    border-bottom: none;
+}
+
+.document-list li:hover {
+    background-color: #f0f2f5;
+}
+
+.document-list li.active {
+    background-color: #e6f7ff;
+    font-weight: bold;
+    color: #1890ff;
+}
+
+.no-documents-message {
+    text-align: center;
+    color: #6c757d;
+    padding: 30px 15px; /* Mais padding */
+    font-size: 1.1em; /* Levemente maior */
+    margin-top: 20px;
+    background-color: #f8f9fa; /* Fundo suave */
+    border-radius: 5px;
+    border: 1px dashed #ced4da; /* Borda tracejada para visual distinto */
+}

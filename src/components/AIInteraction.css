@@ -1,0 +1,141 @@
+/* src/components/AIInteraction.css */
+.ai-interaction-container {
+    flex: 1; /* Faz com que ocupe o espaço disponível */
+    background-color: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.ai-interaction-container h3 {
+    margin-top: 0;
+    color: #0056b3;
+    font-size: 1.5em;
+    margin-bottom: 15px;
+}
+
+.ai-input-area {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.ai-input-area input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+.ai-input-area button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.ai-input-area button:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+.ai-input-area button:disabled {
+    background-color: #a7a7a7;
+    cursor: not-allowed;
+}
+
+.ai-response-area {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    overflow-y: auto; /* Adiciona scroll se a resposta for longa */
+    max-height: calc(100vh - 350px); /* Ajuste conforme necessário */
+}
+
+.ai-response-area h4 {
+    margin-top: 0;
+    color: #343a40;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.ai-response-area p {
+    white-space: pre-wrap; /* Preserva quebras de linha e espaços */
+    word-wrap: break-word; /* Quebra palavras longas */
+    color: #333;
+}
+
+.ai-error-message {
+    color: #dc3545;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.ai-placeholder-message {
+    flex: 1; /* Ocupa o espaço restante */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #6c757d;
+    font-style: italic;
+    padding: 20px;
+}
+
+/* Media Queries para responsividade */
+@media (max-width: 1024px) {
+    .ai-interaction-container {
+        padding: 20px;
+        margin-top: 15px; /* Espaçamento após a lista de documentos em mobile */
+    }
+
+    .ai-response-area {
+        max-height: 300px; /* Ajuste para telas menores */
+    }
+}
+
+@media (max-width: 768px) {
+    .ai-interaction-container {
+        padding: 15px;
+    }
+    .ai-interaction-container h3 {
+        font-size: 1.3em;
+    }
+    .ai-input-area input,
+    .ai-input-area button {
+        font-size: 0.9em;
+        padding: 8px 12px;
+    }
+    .ai-response-area {
+        max-height: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    .ai-interaction-container {
+        padding: 10px;
+    }
+    .ai-interaction-container h3 {
+        font-size: 1.1em;
+    }
+    .ai-input-area input,
+    .ai-input-area button {
+        font-size: 0.8em;
+        padding: 6px 10px;
+    }
+    .ai-response-area {
+        max-height: 200px;
+        padding: 10px;
+    }
+}

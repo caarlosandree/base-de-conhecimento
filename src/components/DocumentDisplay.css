@@ -1,0 +1,53 @@
+.document-display {
+    flex-grow: 3; /* Ocupa a maior parte do espaço */
+    padding: 20px 40px;
+    background-color: #ffffff;
+    overflow-y: auto; /* Para scrollar se o conteúdo for muito longo */
+}
+
+.document-display-placeholder {
+    flex-grow: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
+    color: #888;
+    background-color: #f9f9f9;
+}
+
+.document-display h2 {
+    color: #0056b3;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 2em;
+}
+
+.document-category {
+    font-weight: bold; /* Adiciona negrito */
+    font-style: italic; /* Adiciona itálico, se desejar */
+    margin-bottom: 15px; /* Adiciona algum espaço abaixo da categoria */
+    color: #555; /* Uma cor mais suave, por exemplo */
+}
+
+.document-content {
+    line-height: 1.6;
+    color: #333;
+}
+
+.document-content p {
+    margin-bottom: 10px;
+}
+
+/* Estilos básicos para o markdown simples */
+.document-content .bold-text {
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-size: 1.1em;
+}
+
+.document-content .list-item {
+    margin-left: 20px;
+    margin-bottom: 5px;
+    list-style-type: disc; /* ou decimal para listas numeradas */
+}

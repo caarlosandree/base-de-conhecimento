@@ -1,0 +1,644 @@
+/* src/App.css */
+
+/* --- Declarações de Fontes Personalizadas (.ttf) --- */
+/* Certifique-se de que os nomes dos arquivos .ttf na sua pasta src/assets/fonts
+   correspondem exatamente aos nomes aqui (ex: Sans-Light.ttf) */
+
+/* Sans-Light */
+@font-face {
+    font-family: 'MinhaSans'; /* Nome da família de fontes que você usará */
+    src: url('./assets/fonts/Sans-Light.ttf') format('truetype');
+    font-weight: 300; /* Peso da fonte para "Light" */
+    font-style: normal;
+}
+
+/* Sans-Regular */
+@font-face {
+    font-family: 'MinhaSans';
+    src: url('./assets/fonts/Sans-Regular.ttf') format('truetype');
+    font-weight: 400; /* Peso da fonte para "Regular" */
+    font-style: normal;
+}
+
+/* Sans-Medium */
+@font-face {
+    font-family: 'MinhaSans';
+    src: url('./assets/fonts/Sans-Medium.ttf') format('truetype');
+    font-weight: 500; /* Peso da fonte para "Medium" */
+    font-style: normal;
+}
+
+/* SansVariable (se for uma fonte variável .ttf, a declaração é similar) */
+/* Se SansVariable.ttf for um arquivo de fonte variável que contém todas as variações,
+   você pode declará-lo com range de pesos. Caso contrário, trate como uma fonte normal. */
+@font-face {
+    font-family: 'MinhaSansVariable'; /* Nome separado se for uma fonte variável */
+    src: url('./assets/fonts/SansVariable.ttf') format('truetype-variations'); /* ou format('truetype') se não for variável */
+    font-weight: 100 900; /* Define o range de pesos que esta fonte variável suporta, se aplicável */
+    font-style: normal;
+}
+
+/* --- Fim das Declarações de Fontes Personalizadas --- */
+
+
+/* Estilos Reset e Globais */
+html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Garante que padding e border sejam incluídos na largura/altura do elemento */
+    overflow-x: hidden; /* <-- PREVINE ROLAGEM HORIZONTAL GERAL */
+    width: 100%; /* Garante que o body não seja maior que a viewport */
+}
+
+body {
+    font-family: 'MinhaSans', Arial, sans-serif; /* Aplica a fonte globalmente */
+    background-color: #f4f7f6; /* Cor de fundo suave */
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Container principal da aplicação */
+.app-container {
+    display: flex;
+    flex-direction: column; /* Cabeçalho em cima, conteúdo abaixo */
+    min-height: 100vh; /* Garante que o container ocupe a altura total da viewport */
+}
+
+/* Estilos para o cabeçalho (Header.tsx) */
+.header {
+    background-color: #343a40; /* Cor escura para o cabeçalho */
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 1.8em;
+}
+
+.header input {
+    padding: 8px 12px;
+    border: 1px solid #6c757d;
+    border-radius: 4px;
+    background-color: #495057;
+    color: white;
+    width: 250px; /* Largura padrão para desktop */
+}
+
+.header input::placeholder {
+    color: #adb5bd;
+}
+
+/* Estilos para o conteúdo principal (Sidebar + DocumentList/Display/AIInteraction) */
+.main-content {
+    display: flex; /* Define o layout flexível */
+    flex: 1; /* Faz o main-content crescer para ocupar o espaço restante */
+}
+
+/* Estilos para a barra lateral (Sidebar.tsx) */
+.sidebar {
+    width: 250px; /* Largura fixa da sidebar */
+    background-color: #e9ecef; /* Cor clara para a sidebar */
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+    flex-shrink: 0; /* Impede que a sidebar encolha */
+    overflow-y: auto; /* Adiciona scroll se o conteúdo for muito longo */
+}
+
+.sidebar h3 {
+    margin-top: 0;
+    color: #495057;
+    border-bottom: 1px solid #ced4da;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar li {
+    margin-bottom: 8px;
+}
+
+.sidebar button {
+    width: 100%;
+    padding: 10px 15px;
+    border: none;
+    background-color: transparent;
+    text-align: left;
+    cursor: pointer;
+    font-size: 1em;
+    color: #333;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.sidebar button:hover {
+    background-color: #dee2e6;
+}
+
+.sidebar button.active {
+    background-color: #007bff; /* Cor para categoria selecionada ou modo ativo */
+    color: white;
+    font-weight: bold;
+}
+
+/* NOVO: Estilos para o toggle de modo na Sidebar */
+.sidebar-mode-toggle {
+    margin-top: 30px;
+    border-top: 1px solid #ced4da;
+    padding-top: 20px;
+}
+
+.sidebar-mode-toggle h3 {
+    margin-top: 0;
+    color: #495057;
+    border-bottom: none; /* Remove a borda inferior que a categoria tem */
+    padding-bottom: 0;
+    margin-bottom: 10px;
+}
+
+.sidebar-mode-toggle button {
+    margin-bottom: 8px; /* Espaço entre os botões de modo */
+}
+
+/* Estilos para a área de conteúdo principal (DocumentList + DocumentDisplay / AIInteraction) */
+.content-area {
+    display: flex; /* Coloca lista e display lado a lado */
+    flex: 1; /* Faz o content-area crescer para ocupar o espaço restante */
+    padding: 20px; /* Espaçamento interno */
+    gap: 20px; /* Espaçamento entre DocumentList e DocumentDisplay/AIInteraction */
+    overflow: auto; /* Adiciona scroll se o conteúdo for muito grande */
+}
+
+/* Estilos para a lista de documentos (DocumentList.tsx) */
+.document-list {
+    width: 300px; /* Largura fixa para a lista de documentos */
+    background-color: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0; /* Impede que a lista encolha */
+    overflow-y: auto; /* Adiciona scroll se o conteúdo for muito longo */
+    max-height: calc(100vh - 120px); /* Ajusta altura máxima para scroll */
+}
+
+.document-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.document-list li {
+    margin-bottom: 10px;
+}
+
+.document-list button {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ced4da;
+    background-color: white;
+    text-align: left;
+    cursor: pointer;
+    font-size: 0.95em;
+    color: #333;
+    border-radius: 4px;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.document-list button:hover {
+    background-color: #f8f9fa;
+    border-color: #a7a7a7;
+}
+
+.document-list button.active {
+    background-color: #6c757d; /* Cor para documento selecionado */
+    color: white;
+    font-weight: bold;
+    border-color: #6c757d;
+}
+
+/* Estilos para o display do documento (DocumentDisplay.tsx) */
+.document-display {
+    flex: 1; /* Faz o display do documento ocupar o restante do espaço */
+    background-color: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; /* Adiciona scroll se o conteúdo for muito longo */
+    max-height: calc(100vh - 120px); /* Ajusta altura máxima para scroll */
+}
+
+.document-display h2 {
+    margin-top: 0;
+    color: #0056b3;
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.document-display .document-category {
+    font-style: italic;
+    color: #6a6a6a;
+    margin-bottom: 20px;
+}
+
+.document-display .document-content {
+    line-height: 1.6;
+    color: #333;
+    /* Garante que o conteúdo não cause overflow horizontal */
+    word-wrap: break-word; /* Quebra palavras longas */
+    overflow-wrap: break-word; /* Outra propriedade similar para compatibilidade */
+}
+
+/* Estilos para mensagens de carregamento e erro */
+.loading-message, .error-message {
+    flex: 1; /* Ocupa o espaço disponível */
+    display: flex;
+    flex-direction: column; /* Para alinhar um ícone ou texto verticalmente */
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3em; /* Levemente maior */
+    color: #6c757d;
+    padding: 40px; /* Mais padding */
+    text-align: center;
+    border-radius: 8px; /* Bordas arredondadas */
+    background-color: #ffffff; /* Fundo branco para se destacar */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* Sombra suave */
+    margin: 20px; /* Margem ao redor da caixa */
+}
+
+.error-message {
+    color: #dc3545; /* Cor de erro mais forte */
+    font-weight: bold;
+}
+
+/* Spinner de carregamento */
+.loading-message::before {
+    content: '';
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top: 4px solid #007bff; /* Cor do spinner */
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 15px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Estilo para a mensagem quando não há documento selecionado ou busca vazia no mobile */
+.no-document-message {
+    flex: 1; /* Ocupa o espaço disponível */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px; /* Adiciona um padding para a mensagem */
+    color: #6c757d;
+    font-size: 1.1em;
+    background-color: white; /* Fundo branco para combinar com a lista */
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 15px; /* Espaço do topo da mensagem */
+}
+
+/* --- ESTILOS DO AIInteraction.tsx --- */
+.ai-interaction-container {
+    flex: 1; /* Faz com que ocupe o espaço disponível */
+    background-color: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.ai-interaction-container h3 {
+    margin-top: 0;
+    color: #0056b3;
+    font-size: 1.5em;
+    margin-bottom: 15px;
+}
+
+.ai-input-area {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.ai-input-area input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+.ai-input-area button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.ai-input-area button:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+.ai-input-area button:disabled {
+    background-color: #a7a7a7;
+    cursor: not-allowed;
+}
+
+.ai-response-area {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    overflow-y: auto; /* Adiciona scroll se a resposta for longa */
+    max-height: calc(100vh - 350px); /* Ajuste conforme necessário, para não sair da tela */
+}
+
+.ai-response-area h4 {
+    margin-top: 0;
+    color: #343a40;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.ai-response-area p {
+    white-space: pre-wrap; /* Preserva quebras de linha e espaços */
+    word-wrap: break-word; /* Quebra palavras longas */
+    color: #333;
+}
+
+.ai-error-message {
+    color: #dc3545;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.ai-placeholder-message {
+    flex: 1; /* Ocupa o espaço restante */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #6c757d;
+    font-style: italic;
+    padding: 20px;
+}
+
+
+/* --- Media Queries para Responsividade --- */
+
+/* Para telas menores que 1024px (laptops menores, tablets em landscape) */
+@media (max-width: 1024px) {
+    .header {
+        flex-direction: column; /* FORÇA o empilhamento */
+        align-items: center; /* Centraliza itens na coluna */
+        padding: 15px;
+    }
+
+    .header h1 {
+        font-size: 1.6em; /* Diminui o título */
+        margin-bottom: 10px; /* Espaço abaixo do título */
+        width: 100%; /* Força o título a ocupar a largura total */
+        text-align: center; /* Centraliza o texto do título */
+        box-sizing: border-box; /* Inclui padding na largura */
+    }
+
+    .header input {
+        width: 100%; /* Busca ocupa largura total */
+        max-width: 400px; /* Limita a largura máxima para não ficar muito grande em tablets */
+        margin: 10px auto 0 auto; /* 10px de margin-top, centraliza horizontalmente */
+        box-sizing: border-box; /* Inclui padding na largura */
+    }
+
+    .main-content {
+        flex-direction: column; /* Sidebar e content-area empilham */
+    }
+
+    .sidebar {
+        width: 100%; /* Sidebar ocupa largura total */
+        max-height: 200px; /* Limita a altura da sidebar para não ocupar muito espaço */
+        border-bottom: 1px solid #ced4da; /* Adiciona uma borda inferior */
+        padding: 15px 20px; /* Ajusta o padding para manter consistente */
+        box-sizing: border-box; /* Garante que padding não adicione largura extra */
+    }
+
+    .sidebar-mode-toggle {
+        margin-top: 20px;
+        padding-top: 15px;
+    }
+
+    .content-area {
+        flex-direction: column; /* DocumentList e DocumentDisplay/AIInteraction empilham */
+        padding: 15px; /* Diminui o padding geral */
+        gap: 15px; /* Diminui o espaçamento entre elementos empilhados */
+        box-sizing: border-box;
+    }
+
+    .document-list {
+        width: 100%; /* Lista de documentos ocupa largura total */
+        max-height: 400px; /* Ajusta altura máxima */
+        box-sizing: border-box;
+    }
+
+    .document-display {
+        max-height: none; /* Remove a altura máxima para o conteúdo se expandir */
+        padding: 20px; /* Diminui o padding */
+        box-sizing: border-box;
+    }
+
+    /* Garante que a mensagem fique centralizada na área de conteúdo */
+    .no-document-message {
+        margin: 15px 0 0 0; /* Remove margin-left/right, adiciona só top */
+    }
+
+    /* AIInteraction em mobile */
+    .ai-interaction-container {
+        padding: 20px;
+        margin-top: 15px; /* Espaçamento após a lista de documentos em mobile */
+    }
+    .ai-response-area {
+        max-height: 300px; /* Ajuste para telas menores */
+    }
+}
+
+/* Para telas muito pequenas, como smartphones (menores que 768px) */
+@media (max-width: 768px) {
+    .header {
+        padding: 10px; /* Reduz o padding do cabeçalho */
+    }
+
+    .header h1 {
+        font-size: 1.4em;
+    }
+
+    .header input {
+        margin-top: 8px; /* Ajuste de margin-top para este breakpoint */
+    }
+
+    .sidebar {
+        max-height: 150px;
+        padding: 10px 15px; /* Reduz o padding da sidebar */
+    }
+
+    .sidebar h3 {
+        font-size: 1.1em;
+    }
+
+    .sidebar button {
+        font-size: 0.9em;
+        padding: 8px 10px;
+    }
+
+    .content-area {
+        padding: 10px; /* Reduz o padding do content-area */
+        gap: 10px;
+    }
+
+    .document-list {
+        max-height: 300px;
+        padding: 10px; /* Reduz o padding da lista de documentos */
+    }
+
+    .document-list button {
+        font-size: 0.85em;
+        padding: 8px 10px;
+    }
+
+    .document-display {
+        padding: 15px; /* Reduz o padding do display do documento */
+    }
+
+    .document-display h2 {
+        font-size: 1.8em;
+    }
+
+    .document-display .document-category,
+    .document-display .document-content {
+        font-size: 0.9em;
+    }
+
+    .no-document-message {
+        margin-top: 10px; /* Ajuste de margin-top para este breakpoint */
+        font-size: 1em;
+    }
+
+    /* AIInteraction em mobile menor */
+    .ai-interaction-container {
+        padding: 15px;
+    }
+    .ai-interaction-container h3 {
+        font-size: 1.3em;
+    }
+    .ai-input-area input,
+    .ai-input-area button {
+        font-size: 0.9em;
+        padding: 8px 12px;
+    }
+    .ai-response-area {
+        max-height: 250px;
+    }
+}
+
+/* Para telas muito estreitas, como smartphones na vertical (menores que 480px) */
+@media (max-width: 480px) {
+    .header {
+        padding: 8px; /* Mais redução de padding */
+    }
+
+    .header h1 {
+        font-size: 1.1em; /* Título menor */
+    }
+
+    .header input {
+        font-size: 0.9em; /* Fonte do input menor */
+        padding: 6px 10px; /* Padding do input menor */
+        margin-top: 6px; /* Ajuste final de margin-top para mobile */
+    }
+
+    .sidebar {
+        max-height: 100px; /* Pode reduzir ainda mais a altura da sidebar */
+        padding: 8px 10px; /* Mais redução de padding */
+    }
+
+    .sidebar h3 {
+        font-size: 0.9em;
+    }
+
+    .sidebar button {
+        font-size: 0.75em; /* Fonte ainda menor para botões */
+        padding: 6px 8px;
+    }
+
+    .content-area {
+        padding: 8px; /* Redução para evitar rolagem horizontal */
+        gap: 8px; /* Menor espaçamento */
+    }
+
+    .document-list {
+        max-height: 200px; /* Redução de altura para telas muito pequenas */
+        padding: 8px; /* Mais redução de padding */
+    }
+
+    .document-list button {
+        font-size: 0.75em;
+        padding: 6px 8px;
+    }
+
+    .document-display {
+        padding: 10px; /* Redução final do padding */
+    }
+
+    .document-display h2 {
+        font-size: 1.5em;
+    }
+
+    .document-display .document-category,
+    .document-display .document-content {
+        font-size: 0.85em;
+    }
+
+    .no-document-message {
+        margin-top: 8px; /* Ajuste de margin-top para este breakpoint */
+        font-size: 0.9em;
+    }
+
+    /* AIInteraction em mobile super pequeno */
+    .ai-interaction-container {
+        padding: 10px;
+    }
+    .ai-interaction-container h3 {
+        font-size: 1.1em;
+    }
+    .ai-input-area input,
+    .ai-input-area button {
+        font-size: 0.8em;
+        padding: 6px 10px;
+    }
+    .ai-response-area {
+        max-height: 200px;
+        padding: 10px;
+    }
+}

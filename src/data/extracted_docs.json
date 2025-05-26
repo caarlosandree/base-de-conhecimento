@@ -1,0 +1,20 @@
+[
+  {
+    "id": "apresentacao_gw108_3g",
+    "title": "Apresentação Gateway GW108 3G",
+    "category": "Gateway",
+    "content": "Este documento apresenta as principais funcionalidades e formas de uso do Gateway GW108 3G.\n\n**Principais Seções:**\n* **Comunicação WideVoice**: Para verificar como o equipamento se comunica com o WideVoice, utilize o acesso indicado no manual.\n* **Operação**: O botão de reset serve apenas para reinicializar o equipamento. Cada porta GSM está mapeada para uma porta FXS correspondente (Ex: GSM 1 para FXS 1). O programador web é utilizado para análise de sinal e status de funcionamento, sendo um software exclusivo que deve ser baixado na página do produto. Como é um equipamento analógico, exige um gateway FXO para converter sinais GSM em IP.\n* **Características Técnicas**: Inclui informações sobre frequência (GSM 850/900/1800/1900 MHz, UMTS 800/850/900/1900/2100 MHz), áudio (redução de ruído, ajuste de ganho e DTMF), SIM card (tamanho padrão 25x15 mm), e antena (conector SMA fêmea com impedância de 50 Ohms).\n* **Funcionalidades Extras**: Identificação de chamada, Callback, Bloqueio de ligações de entrada/saída, Envio de DTMF e Roteamento automático de chamada."
+  },
+  {
+    "id": "boletim_tecnico_metapabx_vivo",
+    "title": "Boletim Técnico Metapabx Vivo",
+    "category": "Wide Voice",
+    "content": "Este boletim técnico, com data de emissão em 01/09/2016 e revisão em 11/08/2022, aborda alterações no produto Wide Voice visando melhoria de performance e homologação com a operadora VIVO (servidor METAPABX).\n\n**Conteúdo Principal:**\n* Configuração do tronco Widevoice.\n* Configuração do ramal (CALLERID).\n* Configuração do redirecionamento.\n* Informações complementares."
+  },
+  {
+    "id": "cip850_widevoice",
+    "title": "CIP850 como Gateway PSTN para Wide Voice",
+    "category": "Gateway",
+    "content": "Este tutorial técnico demonstra como utilizar o CIP850 como gateway entre uma ITC e o Wide Voice.\n\n**Configuração:**\n* **Juntor SIP**: Deve ser configurado com as informações do Wide Voice.\n* **Rota ITC > Wide Voice**: Utiliza o ramal com siga-me.\n* **Ramal com siga-me externo**: Desvio com acesso 7.\n* **Rotas Wide Voice > ITC**: Utiliza os prefixos 0 a 5 e 9.\n* **Conversões numéricas**: Para eliminar a necessidade de discar rota.\n\n**Observações Importantes:**\n* O ramal IP não precisa estar registrado.\n* O destino do desvio é fornecido pelo Wide Voice.\n* É necessário modificar o acesso 9 nas funcionalidades do sistema."
+  }
+]
