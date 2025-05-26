@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "composite": true, // Indica que este é um projeto composto e pode ser referenciado por outros
+    "skipLibCheck": true, // Pula a verificação de tipo para bibliotecas
+    "module": "ESNext", // Usa módulos ES para o ambiente Node
+    "moduleResolution": "bundler",
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "jsx": "react-jsx",
+    "types": ["node"] // Adiciona tipos específicos do Node.js
+  },
+  "include": ["vite.config.ts", "package.json"], // Inclui o arquivo de configuração do Vite e package.json
+  "exclude": ["node_modules", "dist"]
+}
