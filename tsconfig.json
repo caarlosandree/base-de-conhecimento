@@ -1,27 +1,27 @@
 {
   "compilerOptions": {
-    "target": "ESNext", // Compila para a versão mais recente do JavaScript para navegadores modernos
-    "useDefineForClassFields": true, // Necessário para usar a sintaxe de campos de classe
-    "lib": ["DOM", "DOM.Iterable", "ESNext"], // Inclui bibliotecas padrão para DOM e recursos JS modernos
-    "allowJs": false, // Não permite arquivos JavaScript puros no projeto (apenas TypeScript)
-    "skipLibCheck": true, // Pula a verificação de tipo de arquivos de declaração de biblioteca (geralmente node_modules) para compilação mais rápida
-    "esModuleInterop": true, // Permite importações padrão para módulos que exportam via CommonJS
-    "allowSyntheticDefaultImports": true, // Habilita padrões de importação sintéticos
-    "strict": true, // Habilita todas as opções de verificação de tipo "strict" (altamente recomendado para código robusto)
-    "forceConsistentCasingInFileNames": true, // Garante que as importações e nomes de arquivo usem o mesmo padrão de maiúsculas/minúsculas
-    "module": "ESNext", // Usa o sistema de módulos ES para seu código
-    "moduleResolution": "bundler", // Ou "node" para projetos mais antigos/sem bundler. "bundler" é otimizado para Vite/Webpack.
-    "resolveJsonModule": true, // Permite importar arquivos .json diretamente
-    "isolatedModules": true, // Garante que cada arquivo pode ser transpilado de forma independente (bom para ferramentas como Vite/esbuild)
-    "noEmit": true, // O TypeScript não emitirá arquivos JS; o bundler (Vite) fará isso
-    "jsx": "react-jsx", // Habilita o novo transform JSX para React 17+ (não requer "import React from 'react';")
-    "outDir": "./dist", // Onde os arquivos compilados (se houvesse) iriam - aqui é mais para o IDE
-    "baseUrl": "./src", // Permite imports absolutos a partir de 'src' (ex: import { foo } from 'components/foo';)
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "allowJs": false,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "outDir": "./dist",
+    "baseUrl": "./src",
     "paths": {
-      "@/*": ["./*"] // Mapeamento de caminho: permite importar como '@/' em vez de './src/'
+      "@/*": ["./*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.d.ts"], // Inclui todos os arquivos .ts, .tsx e .d.ts na pasta src
-  "exclude": ["node_modules", "dist"], // Exclui estas pastas da compilação
-  "references": [{ "path": "./tsconfig.node.json" }] // Link para o tsconfig.node.json para configurações específicas do ambiente Node.js
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.d.ts", "vite-env.d.ts"], // O 'vite-env.d.ts' foi adicionado explicitamente aqui
+  "exclude": ["node_modules", "dist"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

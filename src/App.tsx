@@ -55,11 +55,15 @@ const App: React.FC = () => {
     // --- FUNÇÕES AUXILIARES ---
     // Esta função de busca externa está simulada e desativada.
     // Para ativá-la, você precisaria de uma API de busca (ex: Google Custom Search API).
+    // O aviso "Unused constant" está aparecendo porque esta função não está sendo chamada.
+    // Comentá-la remove o aviso e facilita a reintrodução futura.
+    /*
     const googleSearch = async (query: string) => {
         console.warn("A função de busca externa (googleSearch) não está ativa no momento. Retornando mensagem mock.");
         // Você pode retornar resultados de busca mockados aqui para testes, ou lançar um erro.
         return { message: "Funcionalidade de busca externa desativada. Consulta: " + query };
     };
+    */
 
     // --- EFEITOS (useEffect) ---
     useEffect(() => {
@@ -269,36 +273,36 @@ const App: React.FC = () => {
             //         const query = functionCall.args.query;
             //         console.log("IA solicitou busca na internet para:", query);
 
-            //         const searchResults = await googleSearch(query); // Simula a busca externa
+            //         // const searchResults = await googleSearch(query); // Simula a busca externa
 
-            //         if ((searchResults as any).error) {
-            //             result = await chat.sendMessage([
-            //                 {
-            //                     functionResponse: {
-            //                         name: 'googleSearch',
-            //                         response: { error: (searchResults as any).error }
-            //                     }
-            //                 }
-            //             ]);
-            //         } else if ((searchResults as any).message) {
-            //             result = await chat.sendMessage([
-            //                 {
-            //                     functionResponse: {
-            //                         name: 'googleSearch',
-            //                         response: { message: (searchResults as any).message }
-            //                     }
-            //                 }
-            //             ]);
-            //         } else {
-            //             result = await chat.sendMessage([
-            //                 {
-            //                     functionResponse: {
-            //                         name: 'googleSearch',
-            //                         response: { results: searchResults }
-            //                     }
-            //                 }
-            //             ]);
-            //         }
+            //         // if ((searchResults as any).error) {
+            //         //     result = await chat.sendMessage([
+            //         //         {
+            //         //             functionResponse: {
+            //         //                 name: 'googleSearch',
+            //         //                 response: { error: (searchResults as any).error }
+            //         //             }
+            //         //         }
+            //         //     ]);
+            //         // } else if ((searchResults as any).message) {
+            //         //     result = await chat.sendMessage([
+            //         //         {
+            //         //             functionResponse: {
+            //         //                 name: 'googleSearch',
+            //         //                 response: { message: (searchResults as any).message }
+            //         //             }
+            //         //         }
+            //         //     ]);
+            //         // } else {
+            //         //     result = await chat.sendMessage([
+            //         //         {
+            //         //             functionResponse: {
+            //         //                 name: 'googleSearch',
+            //         //             response: { results: searchResults }
+            //         //             }
+            //         //         }
+            //         //     ]);
+            //         // }
             //         response = result.response;
             //     } else {
             //         console.warn("Função desconhecida chamada pela IA:", functionCall.name);
