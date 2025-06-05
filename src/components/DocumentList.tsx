@@ -14,18 +14,23 @@ interface DocumentListProps {
     documents: Document[]; // A lista de documentos a serem exibidos
     onDocumentSelect: (id: string) => void; // Função para selecionar um documento
     selectedDocumentId: string | null; // ID do documento selecionado atualmente
+    isFiltering: boolean; // Novo: estado de filtragem
 }
 
 const DocumentList: React.FC<DocumentListProps> = ({
                                                        documents,
                                                        onDocumentSelect,
                                                        selectedDocumentId,
+                                                       isFiltering, // Recebendo o estado de filtragem
                                                    }) => {
     return (
-        <div className="document-list">
+        <div className={`document-list ${isFiltering ? 'is-filtering' : ''}`}>
             <h3>Documentos</h3>
             {documents.length === 0 ? (
-                <p className="no-documents-message">Nenhum documento encontrado.</p>
+                <p className="no-documents-message">
+                    <i className="fas fa-folder-open"></i> {/* Ícone de pasta */}
+                    Nenhum documento encontrado.
+                </p>
             ) : (
                 <ul>
                     {documents.map((doc) => (

@@ -1,9 +1,3 @@
-/* src/App.css */
-
-/* --- Declarações de Fontes Personalizadas (.ttf) --- */
-/* Certifique-se de que os nomes dos arquivos .ttf na sua pasta src/assets/fonts
-   correspondem exatamente aos nomes aqui (ex: Sans-Light.ttf) */
-
 /* Sans-Light */
 @font-face {
     font-family: 'MinhaSans'; /* Nome da família de fontes que você usará */
@@ -344,6 +338,10 @@ body {
     font-size: 1em;
 }
 
+.ai-input-area input::placeholder {
+    color: #a7a7a7;
+}
+
 .ai-input-area button {
     padding: 10px 20px;
     background-color: #007bff;
@@ -443,11 +441,17 @@ body {
         border-bottom: 1px solid #ced4da; /* Adiciona uma borda inferior */
         padding: 15px 20px; /* Ajusta o padding para manter consistente */
         box-sizing: border-box; /* Garante que padding não adicione largura extra */
+        transform: translateX(-100%); /* Esconde a sidebar por padrão em mobile */
+        position: fixed;
+        left: 0;
+        top: 120px; /* Abaixo do header */
+        bottom: 0;
+        z-index: 999;
+        transition: transform 0.3s ease-in-out;
     }
 
-    .sidebar-mode-toggle {
-        margin-top: 20px;
-        padding-top: 15px;
+    .sidebar.is-open {
+        transform: translateX(0); /* Mostra a sidebar quando aberta */
     }
 
     .content-area {

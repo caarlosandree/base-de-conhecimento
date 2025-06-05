@@ -115,6 +115,17 @@
     margin-right: 8px;
 }
 
+/* NOVO: Botão de toggle da sidebar para mobile */
+.sidebar-toggle-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5em;
+    cursor: pointer;
+    margin-right: 15px;
+    order: -1; /* Garante que o botão apareça antes do título em mobile */
+}
+
 
 /* Responsividade */
 @media (max-width: 768px) {
@@ -124,18 +135,22 @@
     }
 
     .header-top-row {
-        flex-direction: column; /* Empilha título e busca */
-        align-items: flex-start;
+        flex-direction: row; /* Mantém em linha para incluir o botão de toggle */
+        align-items: center;
         gap: 10px;
     }
 
     .app-title {
         font-size: 1.5em;
+        flex-grow: 1; /* Permite que o título ocupe espaço, empurrando a busca */
+        text-align: left; /* Alinha o título à esquerda */
     }
 
     .search-bar {
         margin-left: 0;
         max-width: 100%; /* Ocupa toda a largura */
+        order: 1; /* Move a search bar para a linha de baixo (ou depois do título) */
+        flex-basis: 100%; /* Força a ocupar 100% da largura disponível */
     }
 
     .header-bottom-row {

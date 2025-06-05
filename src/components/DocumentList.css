@@ -5,12 +5,41 @@
     border-right: 1px solid #eee;
     overflow-y: auto; /* Para scrollar se houver muitos documentos */
     width: 250px; /* Largura fixa para a lista de documentos */
+    position: relative; /* Para o spinner de carregamento */
 }
 
-.document-list h2 {
+/* Estilo para quando a lista está filtrando */
+.document-list.is-filtering {
+    opacity: 0.7; /* Suaviza a lista */
+    pointer-events: none; /* Impede cliques */
+}
+
+.document-list.is-filtering::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 3px solid rgba(0, 0, 0, 0.1);
+    border-top: 3px solid #007bff; /* Cor do spinner */
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
+    z-index: 10;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+.document-list h3 { /* Alterado de h2 para h3 para consistência com o Sidebar */
     margin-top: 0;
     color: #333;
     font-size: 1.5em;
+    margin-bottom: 15px; /* Espaço abaixo do título da lista */
 }
 
 .document-list ul {
@@ -19,25 +48,39 @@
 }
 
 .document-list li {
+    /* Removido padding, border-bottom e color do li e movido para o button */
+    margin-bottom: 5px; /* Espaço entre os botões */
+}
+
+.document-list li button {
+    width: 100%;
+    text-align: left;
     padding: 10px 15px;
     cursor: pointer;
-    border-bottom: 1px solid #eee;
+    border: 1px solid #e0e0e0; /* Borda mais suave */
+    border-radius: 4px;
+    background-color: #f8f8f8; /* Fundo leve para o botão */
     color: #333;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
-.document-list li:last-child {
-    border-bottom: none;
+.document-list li button:hover {
+    background-color: #e6f0fa; /* Azul claro no hover */
+    border-color: #a0cffc;
 }
 
-.document-list li:hover {
-    background-color: #f0f2f5;
-}
-
-.document-list li.active {
-    background-color: #e6f7ff;
+.document-list li button.active {
+    background-color: #007bff; /* Azul forte para ativo */
+    color: white;
     font-weight: bold;
-    color: #1890ff;
+    border-color: #007bff;
 }
+
+/* Ajuste para a última li (se houver, o botão dentro dela não precisa de borda inferior) */
+.document-list li:last-child button {
+    /* Não há borda inferior implícita do li, então este não é necessário */
+}
+
 
 .no-documents-message {
     text-align: center;
@@ -48,4 +91,15 @@
     background-color: #f8f9fa; /* Fundo suave */
     border-radius: 5px;
     border: 1px dashed #ced4da; /* Borda tracejada para visual distinto */
+    display: flex; /* Para alinhar ícone e texto */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Estilo para o ícone na mensagem de "nenhum documento" */
+.no-documents-message i {
+    font-size: 2.5em; /* Tamanho maior para o ícone */
+    color: #a0a0a0;
+    margin-bottom: 15px; /* Espaço entre o ícone e o texto */
 }

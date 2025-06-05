@@ -30,9 +30,16 @@
     .app-sidebar {
         width: 100%; /* Ocupa toda a largura em mobile */
         height: auto; /* Altura flexível */
-        position: static; /* Não fica fixo em mobile */
-        padding-bottom: 20px; /* Espaço inferior para rolar */
-        height: auto; /* A altura será determinada pelo conteúdo */
-        max-height: calc(100vh - 120px); /* Limita a altura para que não saia da tela */
+        position: fixed; /* Fixa em mobile para o toggle */
+        left: 0;
+        top: 120px; /* Ajusta para ficar abaixo do cabeçalho */
+        bottom: 0;
+        z-index: 999; /* Garante que fique por cima de outros elementos */
+        transform: translateX(-100%); /* Esconde a sidebar por padrão */
+        transition: transform 0.3s ease-in-out; /* Adiciona transição suave */
+    }
+
+    .app-sidebar.is-open {
+        transform: translateX(0); /* Mostra a sidebar quando aberta */
     }
 }

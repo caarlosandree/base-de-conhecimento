@@ -1,5 +1,7 @@
 import React, { useState, FormEvent, useEffect, useRef } from 'react';
 import './AIInteraction.css'; // Certifique-se de que este arquivo existe para os estilos
+import ReactMarkdown from 'react-markdown'; // Importe ReactMarkdown
+import rehypeRaw from 'rehype-raw'; // Opcional: para renderizar HTML bruto dentro do Markdown
 
 // Definindo a interface ChatMessage (pode ser importada de um arquivo de tipos compartilhado)
 interface ChatMessage {
@@ -49,40 +51,17 @@ const AIInteraction: React.FC<AIInteractionProps> = ({
 
     const getModelDisplayName = (model: ActiveGeminiModelType) => {
         if (model === 'flash') {
-            return 'Gemini 1.5 Flash';
+            return 'Gemini 2.5 Flash'; // Nome mais amigável
         } else if (model === 'pro') {
-            return 'Gemini 2.5 Preview';
+            return 'Gemini 1.5 PRO'; // Nome mais amigável
         }
         return 'Modelo Desconhecido';
     };
 
     return (
         <div className="ai-interaction-container">
-            {/* O formulário de input permanece na parte inferior */}
-            <form onSubmit={handleSubmit} className="ai-input-form">
-                <input
-                    type="text"
-                    value={inputMessage}
-                    onChange={(e) => setInputMessage(e.target.value)}
-                    placeholder={isLoading ? "Aguarde..." : "Digite sua pergunta para a IA..."}
-                    disabled={isLoading}
-                    aria-label="Digite sua pergunta para a IA"
-                />
-                <button type="submit" disabled={isLoading}>
-                    {isLoading ? 'Enviando...' : 'Enviar'}
-                </button>
-            </form>
-
             {/* A área de exibição das mensagens permanece na parte superior */}
             <div className="ai-messages-display">
-                {/* Indicador do modelo Gemini ativo - permanece no topo */}
-                <div className="active-model-indicator">
-                    <span>Modelo Ativo: </span>
-                    <span className={`model-name ${activeGeminiModel}`}>
-                        {getModelDisplayName(activeGeminiModel)}
-                    </span>
-                </div>
-
                 {/* Mensagem instrutiva inicial - exibida apenas se não houver histórico e nenhum processo ativo */}
                 {conversationHistory.length === 0 && !isLoading && !hasError && (
                     <div className="ai-message initial-message">
@@ -93,7 +72,9 @@ const AIInteraction: React.FC<AIInteractionProps> = ({
                 {/* Renderiza todas as mensagens do histórico */}
                 {conversationHistory.map((msg, index) => (
                     <div key={index} className={`ai-message ${msg.role}-message`}>
-                        <p>{msg.text}</p>
+                        <ReactMarkdown rehypePlugins={[rehypeRaw]}>
+                            {msg.text}
+                        </ReactMarkdown>
                     </div>
                 ))}
 
@@ -113,6 +94,29 @@ const AIInteraction: React.FC<AIInteractionProps> = ({
                 )}
 
                 <div ref={messagesEndRef} />
+            </div>
+
+            {/* O formulário de input permanece na parte inferior */}
+            <form onSubmit={handleSubmit} className="ai-input-form">
+                <input
+                    type="text"
+                    value={inputMessage}
+                    onChange={(e) => setInputMessage(e.target.value)}
+                    placeholder={isLoading ? "Aguarde..." : "Digite sua pergunta para a IA..."}
+                    disabled={isLoading}
+                    aria-label="Digite sua pergunta para a IA"
+                />
+                <button type="submit" disabled={isLoading}>
+                    {isLoading ? 'Enviando...' : 'Enviar'}
+                </button>
+            </form>
+
+            {/* Indicador do modelo Gemini ativo - permanece no topo da área de input/rodape */}
+            <div className="active-model-indicator-footer">
+                <span>Modelo Ativo: </span>
+                <span className={`model-name ${activeGeminiModel}`}>
+                    {getModelDisplayName(activeGeminiModel)}
+                </span>
             </div>
         </div>
     );

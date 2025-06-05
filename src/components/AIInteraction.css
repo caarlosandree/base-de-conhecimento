@@ -177,15 +177,15 @@
     }
 }
 
-/* Estilos para o indicador do modelo ativo */
-.active-model-indicator {
+/* Estilos para o indicador do modelo ativo (movido para o rodapé) */
+.active-model-indicator-footer {
     text-align: center;
-    font-size: 0.9em;
+    font-size: 0.8em;
     color: #666;
-    margin-bottom: 15px;
-    padding: 8px 15px;
+    margin-top: 10px;
+    padding: 5px 10px;
     background-color: #f0f0f0;
-    border-radius: 20px;
+    border-radius: 15px;
     display: inline-flex; /* Para que o bloco se ajuste ao conteúdo */
     align-items: center;
     justify-content: center;
@@ -194,31 +194,21 @@
     box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
 }
 
-.active-model-indicator .model-name {
+.active-model-indicator-footer .model-name {
     font-weight: bold;
     margin-left: 5px;
     padding: 3px 8px;
     border-radius: 12px;
-    /* Estilos específicos para cada modelo */
 }
 
-.active-model-indicator .model-name.flash {
+.active-model-indicator-footer .model-name.flash {
     background-color: #ffe0b2; /* Laranja claro */
     color: #e65100; /* Laranja escuro */
 }
 
-.active-model-indicator .model-name.pro {
+.active-model-indicator-footer .model-name.pro {
     background-color: #c8e6c9; /* Verde claro */
     color: #2e7d32; /* Verde escuro */
-}
-
-/* Ajustes para responsividade se necessário */
-@media (max-width: 768px) {
-    .active-model-indicator {
-        font-size: 0.8em;
-        padding: 6px 12px;
-        margin-bottom: 10px;
-    }
 }
 
 /* Estilos para mensagens do usuário */
@@ -242,8 +232,24 @@
     margin-bottom: 10px; /* Espaçamento entre os elementos dentro do display */
 }
 
-/* Algum ajuste para o scrollRef se ele for um div vazio que aparece no final */
-.ai-messages-display div[ref] {
-    height: 1px; /* Ou 0, apenas para ter um ponto de rolagem */
-    visibility: hidden; /* Oculta o div de referência */
+/* Estilos para o conteúdo Markdown dentro das mensagens da IA */
+.ai-message p { margin-bottom: 0.5em; }
+.ai-message ul, .ai-message ol { padding-left: 20px; margin-bottom: 0.5em; }
+.ai-message li { margin-bottom: 0.3em; }
+.ai-message pre {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+    white-space: pre-wrap; /* Garante que o código quebre linha */
+    word-break: break-all; /* Garante que o código longo quebre linha */
 }
+.ai-message code {
+    background-color: #e0e0e0;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    font-size: 0.9em;
+}
+.ai-message strong { font-weight: bold; }
+.ai-message em { font-style: italic; }

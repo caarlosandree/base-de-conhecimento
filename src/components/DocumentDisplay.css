@@ -9,6 +9,7 @@
     overflow-y: auto; /* Adiciona scroll se o conteúdo for muito longo */
     display: flex;
     flex-direction: column;
+    position: relative; /* Para posicionar o botão de voltar */
 }
 
 .document-display-placeholder {
@@ -170,4 +171,35 @@
 
 .document-display .document-content li {
     margin-bottom: 0.5em;
+}
+
+/* NOVO: Estilo para o botão de voltar em mobile */
+.back-to-list-button {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1001; /* Acima do display */
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9em;
+}
+
+.back-to-list-button i {
+    font-size: 1em;
+}
+
+@media (max-width: 768px) {
+    .back-to-list-button {
+        top: 10px;
+        left: 10px;
+        padding: 6px 10px;
+        font-size: 0.8em;
+    }
 }
